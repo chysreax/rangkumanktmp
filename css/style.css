@@ -1,3 +1,373 @@
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            /* Dark Mode Theme */
+            --primary-color: #f0ad4e; /* Was Deep Blue, now Primary Yellow/Orange */
+            --secondary-color: #ffd700; /* Was Bright Blue, now Accent Yellow */
+            --accent-color: #ffd700; /* Was Yellow Accent, keep as Accent Yellow */
+            --text-color: #e0e0e0; /* Light Grey for main text */
+            --text-color-secondary: #b0b0b0; /* Lighter grey for secondary text */
+            --bg-color: #121212; /* Very Dark Grey/Black */
+            --component-bg: #1e1e1e; /* Slightly lighter dark for components */
+            --border-color: #444; /* Mid-Grey for borders */
+            --highlight-bg: #4d442a; /* Dark yellow background for highlights */
+            --highlight-text: #ffe599; /* Light yellow text for highlights */
+            --data-color: #ff6b6b; /* Brighter Red for data points on dark bg */
+            --shadow-color: rgba(255, 255, 255, 0.05); /* Subtle white shadow */
+
+            --scroll-animation-duration: 0.6s;
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding-top: 70px; /* Account for fixed nav */
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--component-bg); /* Dark component background */
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px var(--shadow-color); /* Subtle shadow */
+            transition: top 0.3s;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 1000px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 5px 15px;
+        }
+
+        nav ul li a {
+            color: var(--text-color); /* Light text */
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: inline-block;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: var(--secondary-color); /* Yellow background on hover/active */
+            color: var(--bg-color); /* Dark text for contrast on yellow */
+        }
+
+        /* Header */
+        header {
+             /* Subtle dark gradient or solid component background */
+            background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+            color: var(--text-color); /* Light text */
+            padding: 50px 20px 30px 20px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--primary-color); /* Yellow border bottom */
+        }
+
+        header h1 {
+            margin: 0 0 10px 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--primary-color); /* Make title yellow */
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-bottom: 0;
+             color: var(--text-color-secondary);
+        }
+
+        /* Sections */
+        section {
+            background-color: var(--component-bg); /* Dark component background */
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px var(--shadow-color);
+            border: 1px solid var(--border-color); /* Add subtle border */
+        }
+
+        section h2 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary-color); /* Yellow heading */
+            border-bottom: 3px solid var(--secondary-color); /* Accent yellow border */
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        /* Details/Summary for Collapsible Sections */
+        details {
+            margin-bottom: 20px;
+            background-color: #282828; /* Slightly different dark bg */
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 15px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            background-color: var(--component-bg);
+            font-size: 1.1em;
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary-color); /* Yellow summary text */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+            outline-offset: 3px;
+        }
+        details[open] > summary {
+             border-bottom: 1px solid var(--border-color);
+        }
+
+        summary:hover {
+            background-color: #333; /* Slightly lighter dark on hover */
+        }
+
+        summary::after {
+            content: '+';
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--secondary-color); /* Accent yellow plus icon */
+            transition: transform 0.3s ease-out;
+            margin-left: 10px;
+        }
+
+        details[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .details-content {
+            padding: 20px;
+             color: var(--text-color-secondary); /* Slightly dimmer text inside details */
+        }
+         .details-content strong {
+              color: var(--text-color); /* Make strong text brighter */
+         }
+
+        .details-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Visualizations - CSS Charts for Dark Mode */
+        .chart-container {
+            margin: 25px 0;
+            padding: 20px;
+            background-color: #282828; /* Slightly different dark bg */
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .chart-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: var(--primary-color); /* Yellow title */
+            text-align: center;
+        }
+
+        .bar-chart {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 180px;
+            padding: 10px 0 40px 0;
+            border-bottom: 1px solid var(--border-color); /* Lighter border */
+            position: relative;
+        }
+
+        @keyframes growBar {
+            0% { height: 0; opacity: 0; }
+            100% { height: var(--bar-height); opacity: 1;}
+        }
+
+        .bar {
+            width: 15%;
+             /* Default bar color - Keep specific colors below for distinction */
+            background-color: var(--secondary-color);
+            border-radius: 3px 3px 0 0;
+            text-align: center;
+            position: relative;
+            height: 0;
+            opacity: 0;
+            animation: growBar 1s ease-out forwards;
+            transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+            height: var(--bar-height);
+        }
+        /* Keep specific bar colors for visual distinction - ensure they contrast on dark bg */
+        #social-media-chart .bar[title="WhatsApp"] { background-color: #25D366; }
+        #social-media-chart .bar[title="Instagram"] { background-color: #E1306C; }
+        #social-media-chart .bar[title="Facebook"] { background-color: #1877F2; }
+        #social-media-chart .bar[title="TikTok"] { background-color: #ededed; } /* Lighter for black icon */
+        #social-media-chart .bar[title="TikTok"] .value { color: #000; } /* Dark text on light bar */
+        #social-media-chart .bar[title="YouTube"] { background-color: #FF0000; }
+
+        #info-source-chart .bar:nth-child(1) { background-color: #e1306c; } /* Social Media - Pink */
+        #info-source-chart .bar:nth-child(2) { background-color: #4285F4; } /* Search Engine - Blue */
+        #info-source-chart .bar:nth-child(3) { background-color: #34A853; } /* Recommendations - Green */
+        #info-source-chart .bar:nth-child(4) { background-color: #fbbc05; } /* Ads - Yellow/Orange */
+
+
+        .bar:hover {
+            transform: translateY(-5px);
+            opacity: 0.85;
+            cursor: default;
+        }
+
+        .bar .label {
+            position: absolute;
+            bottom: -30px;
+            width: 100%;
+            left: 0;
+            font-size: 0.8em;
+            color: var(--text-color-secondary); /* Lighter grey label */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .bar .value {
+            position: absolute;
+            top: -25px;
+            width: 100%;
+            left: 0;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: var(--primary-color); /* Yellow value text */
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 0.8s forwards;
+        }
+         /* Special case handled above for TikTok */
+         /* #social-media-chart .bar[title="TikTok"] .value { color: #000; } */
+
+
+         @keyframes fadeIn {
+             from { opacity: 0; transform: translateY(5px); }
+             to { opacity: 1; transform: translateY(0); }
+         }
+
+
+        .data-point {
+            font-weight: bold;
+            color: var(--data-color); /* Use updated data color */
+            font-size: 1.1em;
+        }
+
+        .key-insight {
+            background-color: var(--highlight-bg); /* Use dark highlight bg */
+            color: var(--highlight-text); /* Use dark highlight text */
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 5px solid var(--accent-color); /* Yellow accent border */
+            display: block;
+        }
+
+        #tanya-jawab summary {
+            font-size: 1em;
+        }
+
+        .penanya {
+            font-weight: 700;
+            color: var(--secondary-color); /* Accent yellow for penanya */
+         }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .emphasis {
+            font-style: italic;
+            color: var(--text-color-secondary); /* Lighter grey for emphasis */
+        }
+
+        /* Scroll Reveal Animations */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity var(--scroll-animation-duration) ease-out,
+                        transform var(--scroll-animation-duration) ease-out;
+            will-change: opacity, transform;
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        details.reveal-on-scroll:nth-child(odd) { transition-delay: 0.1s; }
+        details.reveal-on-scroll:nth-child(even) { transition-delay: 0.2s; }
+
+        /* Back to Top Button - Revised */
+        #backToTop {
+            position: fixed;
+            bottom: 25px; /* Slightly more space from bottom */
+            right: 25px;  /* Slightly more space from right */
+            background-color: var(--secondary-color); /* Yellow background */
+            color: var(--bg-color); /* Dark text/icon for contrast */
+            border: none;
+            /* Use padding for sizing, more flexible than fixed width/height */
+            padding: 10px 15px;
+            border-radius: 8px; /* Rounded rectangle */
+            cursor: pointer;
+            display: none; /* Hidden by default */
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, background-color 0.2s ease;
+            font-size: 1.4em; /* Larger icon */
+            line-height: 1; /* Ensure icon is centered vertically */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4); /* Stronger shadow for dark mode */
+            text-align: center;
+        }
+
+        #backToTop.show {
+            display: block; /* Use block or inline-block */
+            opacity: 1;
+        }
+        #backToTop:hover {
+            background-color: var(--primary-color); /* Use primary yellow on hover */
+            transform: scale(1.05) translateY(-2px); /* Slight lift and scale */
+        }
+
+
         /* Footer */
         footer {
             background-color: #1f1f1f; /* Dark component background */
