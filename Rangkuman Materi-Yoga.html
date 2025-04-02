@@ -1,0 +1,755 @@
+<!DOCTYPE html>
+<html lang="id">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kuliah Tamu: Pemasaran Digital - Pak Tri Raharjo (Dark Mode)</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;700&family=Poppins:wght@400;600;700&display=swap');
+
+        :root {
+            /* Dark Mode Theme */
+            --primary-color: #f0ad4e; /* Was Deep Blue, now Primary Yellow/Orange */
+            --secondary-color: #ffd700; /* Was Bright Blue, now Accent Yellow */
+            --accent-color: #ffd700; /* Was Yellow Accent, keep as Accent Yellow */
+            --text-color: #e0e0e0; /* Light Grey for main text */
+            --text-color-secondary: #b0b0b0; /* Lighter grey for secondary text */
+            --bg-color: #121212; /* Very Dark Grey/Black */
+            --component-bg: #1e1e1e; /* Slightly lighter dark for components */
+            --border-color: #444; /* Mid-Grey for borders */
+            --highlight-bg: #4d442a; /* Dark yellow background for highlights */
+            --highlight-text: #ffe599; /* Light yellow text for highlights */
+            --data-color: #ff6b6b; /* Brighter Red for data points on dark bg */
+            --shadow-color: rgba(255, 255, 255, 0.05); /* Subtle white shadow */
+
+            --scroll-animation-duration: 0.6s;
+        }
+
+        * {
+            box-sizing: border-box;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            line-height: 1.7;
+            color: var(--text-color);
+            background-color: var(--bg-color);
+            margin: 0;
+            padding-top: 70px; /* Account for fixed nav */
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            background-color: var(--component-bg); /* Dark component background */
+            padding: 10px 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            left: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px var(--shadow-color); /* Subtle shadow */
+            transition: top 0.3s;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 auto;
+            max-width: 1000px;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        nav ul li {
+            margin: 5px 15px;
+        }
+
+        nav ul li a {
+            color: var(--text-color); /* Light text */
+            text-decoration: none;
+            font-weight: 600;
+            font-family: 'Poppins', sans-serif;
+            padding: 8px 12px;
+            border-radius: 4px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            display: inline-block;
+        }
+
+        nav ul li a:hover,
+        nav ul li a.active {
+            background-color: var(--secondary-color); /* Yellow background on hover/active */
+            color: var(--bg-color); /* Dark text for contrast on yellow */
+        }
+
+        /* Header */
+        header {
+             /* Subtle dark gradient or solid component background */
+            background: linear-gradient(135deg, #2a2a2a 0%, #1e1e1e 100%);
+            color: var(--text-color); /* Light text */
+            padding: 50px 20px 30px 20px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            margin-bottom: 30px;
+            border-bottom: 3px solid var(--primary-color); /* Yellow border bottom */
+        }
+
+        header h1 {
+            margin: 0 0 10px 0;
+            font-family: 'Poppins', sans-serif;
+            font-size: 2.5em;
+            font-weight: 700;
+            color: var(--primary-color); /* Make title yellow */
+        }
+
+        header p {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-bottom: 0;
+             color: var(--text-color-secondary);
+        }
+
+        /* Sections */
+        section {
+            background-color: var(--component-bg); /* Dark component background */
+            margin-bottom: 30px;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 3px 10px var(--shadow-color);
+            border: 1px solid var(--border-color); /* Add subtle border */
+        }
+
+        section h2 {
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary-color); /* Yellow heading */
+            border-bottom: 3px solid var(--secondary-color); /* Accent yellow border */
+            padding-bottom: 10px;
+            margin-top: 0;
+            margin-bottom: 25px;
+            font-size: 1.8em;
+        }
+
+        /* Details/Summary for Collapsible Sections */
+        details {
+            margin-bottom: 20px;
+            background-color: #282828; /* Slightly different dark bg */
+            border: 1px solid var(--border-color);
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        summary {
+            padding: 15px 20px;
+            font-weight: 600;
+            cursor: pointer;
+            background-color: var(--component-bg);
+            font-size: 1.1em;
+            font-family: 'Poppins', sans-serif;
+            color: var(--primary-color); /* Yellow summary text */
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.2s ease;
+            outline-offset: 3px;
+        }
+        details[open] > summary {
+             border-bottom: 1px solid var(--border-color);
+        }
+
+        summary:hover {
+            background-color: #333; /* Slightly lighter dark on hover */
+        }
+
+        summary::after {
+            content: '+';
+            font-size: 1.5em;
+            font-weight: bold;
+            color: var(--secondary-color); /* Accent yellow plus icon */
+            transition: transform 0.3s ease-out;
+            margin-left: 10px;
+        }
+
+        details[open] summary::after {
+            transform: rotate(45deg);
+        }
+
+        .details-content {
+            padding: 20px;
+             color: var(--text-color-secondary); /* Slightly dimmer text inside details */
+        }
+         .details-content strong {
+              color: var(--text-color); /* Make strong text brighter */
+         }
+
+        .details-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        /* Visualizations - CSS Charts for Dark Mode */
+        .chart-container {
+            margin: 25px 0;
+            padding: 20px;
+            background-color: #282828; /* Slightly different dark bg */
+            border-radius: 5px;
+            border: 1px solid var(--border-color);
+            overflow: hidden;
+        }
+
+        .chart-title {
+            font-weight: 600;
+            margin-bottom: 15px;
+            font-size: 1.1em;
+            color: var(--primary-color); /* Yellow title */
+            text-align: center;
+        }
+
+        .bar-chart {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 180px;
+            padding: 10px 0 40px 0;
+            border-bottom: 1px solid var(--border-color); /* Lighter border */
+            position: relative;
+        }
+
+        @keyframes growBar {
+            0% { height: 0; opacity: 0; }
+            100% { height: var(--bar-height); opacity: 1;}
+        }
+
+        .bar {
+            width: 15%;
+             /* Default bar color - Keep specific colors below for distinction */
+            background-color: var(--secondary-color);
+            border-radius: 3px 3px 0 0;
+            text-align: center;
+            position: relative;
+            height: 0;
+            opacity: 0;
+            animation: growBar 1s ease-out forwards;
+            transition: transform 0.2s ease-out, opacity 0.2s ease-out;
+            height: var(--bar-height);
+        }
+        /* Keep specific bar colors for visual distinction - ensure they contrast on dark bg */
+        #social-media-chart .bar[title="WhatsApp"] { background-color: #25D366; }
+        #social-media-chart .bar[title="Instagram"] { background-color: #E1306C; }
+        #social-media-chart .bar[title="Facebook"] { background-color: #1877F2; }
+        #social-media-chart .bar[title="TikTok"] { background-color: #ededed; } /* Lighter for black icon */
+        #social-media-chart .bar[title="TikTok"] .value { color: #000; } /* Dark text on light bar */
+        #social-media-chart .bar[title="YouTube"] { background-color: #FF0000; }
+
+        #info-source-chart .bar:nth-child(1) { background-color: #e1306c; } /* Social Media - Pink */
+        #info-source-chart .bar:nth-child(2) { background-color: #4285F4; } /* Search Engine - Blue */
+        #info-source-chart .bar:nth-child(3) { background-color: #34A853; } /* Recommendations - Green */
+        #info-source-chart .bar:nth-child(4) { background-color: #fbbc05; } /* Ads - Yellow/Orange */
+
+
+        .bar:hover {
+            transform: translateY(-5px);
+            opacity: 0.85;
+            cursor: default;
+        }
+
+        .bar .label {
+            position: absolute;
+            bottom: -30px;
+            width: 100%;
+            left: 0;
+            font-size: 0.8em;
+            color: var(--text-color-secondary); /* Lighter grey label */
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .bar .value {
+            position: absolute;
+            top: -25px;
+            width: 100%;
+            left: 0;
+            font-size: 0.9em;
+            font-weight: bold;
+            color: var(--primary-color); /* Yellow value text */
+            opacity: 0;
+            animation: fadeIn 0.5s ease-out 0.8s forwards;
+        }
+         /* Special case handled above for TikTok */
+         /* #social-media-chart .bar[title="TikTok"] .value { color: #000; } */
+
+
+         @keyframes fadeIn {
+             from { opacity: 0; transform: translateY(5px); }
+             to { opacity: 1; transform: translateY(0); }
+         }
+
+
+        .data-point {
+            font-weight: bold;
+            color: var(--data-color); /* Use updated data color */
+            font-size: 1.1em;
+        }
+
+        .key-insight {
+            background-color: var(--highlight-bg); /* Use dark highlight bg */
+            color: var(--highlight-text); /* Use dark highlight text */
+            padding: 10px 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            border-left: 5px solid var(--accent-color); /* Yellow accent border */
+            display: block;
+        }
+
+        #tanya-jawab summary {
+            font-size: 1em;
+        }
+
+        .penanya {
+            font-weight: 700;
+            color: var(--secondary-color); /* Accent yellow for penanya */
+         }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .emphasis {
+            font-style: italic;
+            color: var(--text-color-secondary); /* Lighter grey for emphasis */
+        }
+
+        /* Scroll Reveal Animations */
+        .reveal-on-scroll {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity var(--scroll-animation-duration) ease-out,
+                        transform var(--scroll-animation-duration) ease-out;
+            will-change: opacity, transform;
+        }
+
+        .reveal-on-scroll.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        details.reveal-on-scroll:nth-child(odd) { transition-delay: 0.1s; }
+        details.reveal-on-scroll:nth-child(even) { transition-delay: 0.2s; }
+
+        /* Back to Top Button - Revised */
+        #backToTop {
+            position: fixed;
+            bottom: 25px; /* Slightly more space from bottom */
+            right: 25px;  /* Slightly more space from right */
+            background-color: var(--secondary-color); /* Yellow background */
+            color: var(--bg-color); /* Dark text/icon for contrast */
+            border: none;
+            /* Use padding for sizing, more flexible than fixed width/height */
+            padding: 10px 15px;
+            border-radius: 8px; /* Rounded rectangle */
+            cursor: pointer;
+            display: none; /* Hidden by default */
+            z-index: 999;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out, background-color 0.2s ease;
+            font-size: 1.4em; /* Larger icon */
+            line-height: 1; /* Ensure icon is centered vertically */
+            box-shadow: 0 2px 8px rgba(0,0,0,0.4); /* Stronger shadow for dark mode */
+            text-align: center;
+        }
+
+        #backToTop.show {
+            display: block; /* Use block or inline-block */
+            opacity: 1;
+        }
+        #backToTop:hover {
+            background-color: var(--primary-color); /* Use primary yellow on hover */
+            transform: scale(1.05) translateY(-2px); /* Slight lift and scale */
+        }
+
+
+        /* Footer */
+        footer {
+            background-color: #1f1f1f; /* Dark component background */
+            color: var(--text-color-secondary); /* Lighter grey footer text */
+            padding: 25px 0;
+            margin-top: 40px;
+            font-size: 0.9em;
+            border-top: 1px solid var(--border-color);
+        }
+         footer p {
+             margin: 5px 0;
+         }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            body { padding-top: 60px; }
+            nav ul { justify-content: space-around; }
+            header h1 { font-size: 2em; }
+            section { padding: 20px; }
+            section h2 { font-size: 1.5em; }
+            .bar-chart { height: 150px; padding-bottom: 35px; }
+            .bar .label { font-size: 0.7em; bottom: -25px; }
+            .bar .value { font-size: 0.8em; top: -20px; }
+            #backToTop {
+                bottom: 20px;
+                right: 20px;
+                padding: 8px 12px;
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.8em; }
+            section h2 { font-size: 1.3em; }
+            nav ul li { margin: 5px 8px; }
+            nav ul li a { padding: 6px 10px; font-size: 0.9em;}
+             #backToTop {
+                padding: 6px 10px;
+                font-size: 1.1em;
+                bottom: 15px;
+                right: 15px;
+                border-radius: 6px;
+            }
+            .bar .label { font-size: 0.65em; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <nav id="mainNav">
+        <ul>
+            <li><a href="#pendahuluan">Pendahuluan</a></li>
+            <li><a href="#materi">Pemaparan Materi</a></li>
+            <li><a href="#tanya-jawab">Tanya Jawab</a></li>
+        </ul>
+    </nav>
+
+    <header class="reveal-on-scroll">
+        <h1>Kuliah Tamu: Pemasaran Digital</h1>
+        <p>Pak Tri Raharjo (Founder Infobrand Group & TRAS N CO)</p>
+    </header>
+
+    <div class="container">
+
+        <section id="pendahuluan" class="reveal-on-scroll">
+            <h2>Pendahuluan & Konteks</h2>
+            <p>Sesi kuliah tamu daring ini menghadirkan <strong>Pak Tri Raharjo</strong>, seorang praktisi berpengalaman dan akademisi di bidang pemasaran, untuk membahas pentingnya Pemasaran Digital. Diselenggarakan untuk mahasiswa program ekstensi, kuliah ini dipandu Ibu Cici.</p>
+        </section>
+
+        <section id="materi">
+            <h2 class="reveal-on-scroll">Pemaparan Materi Utama</h2>
+            <p class="reveal-on-scroll">Berikut adalah poin-poin kunci yang disampaikan oleh Pak Tri Raharjo:</p>
+
+            <details class="reveal-on-scroll">
+                <summary>1. Urgensi & Definisi Pemasaran Digital</summary>
+                <div class="details-content">
+                    <p>Kehadiran online <span class="emphasis">mutlak diperlukan</span> bagi bisnis di era modern ("If your business is not on the internet then your business is out of business" - Bill Gates). Ini bukan lagi pilihan, tapi keharusan untuk bertahan.</p>
+                    <p><strong>Definisi:</strong> Kegiatan pemasaran menggunakan berbagai kanal digital (website, sosmed, SEO/SEM, email, marketplace, dll.) untuk mencapai tujuan bisnis (awareness, leads, sales, relationship).</p>
+                    <span class="key-insight reveal-on-scroll">Pengalaman Pak Tri: Transformasi Majalah Info Franchise ke Infobrand.id sejak 2014 menjadi kunci adaptasi di era disrupsi digital.</span>
+                </div>
+            </details>
+
+            <details class="reveal-on-scroll">
+                <summary>2. Lanskap Digital & Tren Kunci Indonesia (Data)</summary>
+                <div class="details-content">
+                    <p>Potensi pasar digital Indonesia masif.</p>
+                    <span class="key-insight reveal-on-scroll">Jumlah Pengguna Internet: Sekitar <span class="data-point">185,3 Juta (66.5%++)</span>.</span>
+
+                    <div class="chart-container reveal-on-scroll">
+                        <div class="chart-title">Platform Media Sosial Teratas (Estimasi Umum)</div>
+                        <div class="bar-chart" id="social-media-chart">
+                            <!-- Specific background colors are now set via CSS IDs/classes -->
+                            <div class="bar" style="--bar-height: 95%; animation-delay: 0.1s;" title="WhatsApp"><span class="value">~90%</span><span class="label">WhatsApp</span></div>
+                            <div class="bar" style="--bar-height: 80%; animation-delay: 0.2s;" title="Instagram"><span class="value">~80%</span><span class="label">Instagram</span></div>
+                            <div class="bar" style="--bar-height: 75%; animation-delay: 0.3s;" title="Facebook"><span class="value">~75%</span><span class="label">Facebook</span></div>
+                            <div class="bar" style="--bar-height: 70%; animation-delay: 0.4s;" title="TikTok"><span class="value">~70%</span><span class="label">TikTok</span></div>
+                            <div class="bar" style="--bar-height: 60%; animation-delay: 0.5s;" title="YouTube"><span class="value">~60%</span><span class="label">YouTube</span></div>
+                        </div>
+                        <p class="text-center emphasis" style="font-size:0.8em; margin-top:10px;">*Persentase adalah ilustrasi berdasarkan tren umum, urutan sesuai paparan.</p>
+                    </div>
+
+                    <p><strong>Tren Signifikan:</strong></p>
+                    <ul>
+                        <li><span class="emphasis">Social Commerce & Live Streaming:</span> Sangat efektif, potensi omset besar (<span class="data-point">Contoh: 8 Miliar IDR/2 Jam Live</span>). Menumbuhkan profesi baru (Live Streamer).</li>
+                        <li><span class="emphasis">Marketplace Dominan:</span> Menjadi pusat belanja online utama.</li>
+                        <li><span class="emphasis">Website Evolusi ke E-commerce:</span> Bukan hanya profil, tapi kanal penjualan.</li>
+                    </ul>
+                    <span class="key-insight reveal-on-scroll">Riset Infobrand: Aktif menganalisis <span class="data-point">750+ kategori produk</span> & <span class="data-point">7000+ merek</span> di Indonesia.</span>
+                </div>
+            </details>
+
+            <details class="reveal-on-scroll">
+                <summary>3. Perilaku Konsumen Online Indonesia (Data)</summary>
+                <div class="details-content">
+                    <p>Memahami perilaku konsumen adalah kunci sukses.</p>
+                    <span class="key-insight reveal-on-scroll">Aktivitas Riset Online: <span class="data-point">47.1%</span> pengguna internet RI meneliti produk/merek online.</span>
+
+                    <div class="chart-container reveal-on-scroll">
+                        <div class="chart-title">Sumber Utama Pencarian Informasi Produk</div>
+                         <div class="bar-chart" id="info-source-chart">
+                             <div class="bar" style="--bar-height: 85%; animation-delay: 0.1s;"><span class="value">78%</span><span class="label">Media Sosial</span></div>
+                            <div class="bar" style="--bar-height: 50%; animation-delay: 0.2s;"><span class="value">43%</span><span class="label">Mesin Pencari</span></div>
+                            <div class="bar" style="--bar-height: 35%; animation-delay: 0.3s;"><span class="value">~35%</span><span class="label">Rekomendasi</span></div>
+                            <div class="bar" style="--bar-height: 25%; animation-delay: 0.4s;"><span class="value">~25%</span><span class="label">Iklan Online</span></div>
+                         </div>
+                           <p class="text-center emphasis" style="font-size:0.8em; margin-top:10px;">*Data berdasarkan riset yang dipaparkan Pak Tri (Responden boleh pilih >1).</p>
+                    </div>
+
+                     <ul>
+                          <li><span class="emphasis">Pengaruh Ulasan & Rating (UGC):</span> Sangat tinggi. Rating rata-rata official store: <span class="data-point">4.8</span>.</li>
+                         <li><span class="emphasis">Perbandingan Harga:</span> <span class="data-point">89%</span> konsumen membandingkan harga online.</li>
+                         <li><span class="emphasis">Trust Signals:</span> Penting dibangun melalui review, testimoni, keamanan, dll.</li>
+                         <li><span class="emphasis">Pembelian Online Teratas (Contoh 2022):</span> Body Lotion (<span class="data-point">~2.8 Jt transaksi</span>), Hand Wash (<span class="data-point">~2.6 Jt transaksi</span>).</li>
+                     </ul>
+                </div>
+            </details>
+
+             <details class="reveal-on-scroll">
+                <summary>4. Formulasi Strategi Digital Inti</summary>
+                <div class="details-content">
+                    <p>Perlu pendekatan strategis, bukan taktis semata.</p>
+                     <ul>
+                          <li><span class="emphasis">Pemetaan Kompetisi:</span> Analisis pesaing (produk, harga, ulasan, channel) untuk menemukan diferensiasi.</li>
+                         <li><span class="emphasis">INOVASI Produk/Layanan:</span> Kunci utama, terutama untuk pendatang baru. Validasi (misal: "Pertama di Indonesia").</li>
+                          <li><span class="emphasis">Segmentasi, Targeting, Positioning (STP):</span> Fokus pada niche yang tepat jika memungkinkan.</li>
+                          <li><span class="emphasis">Belajar, Jangan Meniru:</span> Amati kompetitor, tapi fokus pada keunikan & inovasi sendiri (Quote Jack Ma).</li>
+                     </ul>
+                </div>
+            </details>
+
+              <details class="reveal-on-scroll">
+                <summary>5. Paid vs. Organic Traffic</summary>
+                <div class="details-content">
+                    <p>Dua jalur utama untuk mendatangkan pengunjung:</p>
+                     <ul>
+                         <li><span class="emphasis">Paid Traffic (Iklan):</span> SEM, Meta Ads, TikTok Ads, LinkedIn Ads. Cepat, tertarget, tapi berbiaya & traffic hilang saat iklan stop.</li>
+                          <li><span class="emphasis">Organic Traffic (Alami):</span> SEO, Content Marketing, Social Media organik. Jangka panjang, bangun trust, biaya perolehan lebih rendah (eventually), tapi butuh waktu & konsistensi.</li>
+                     </ul>
+                       <span class="key-insight reveal-on-scroll">Pengalaman Pak Tri (B2B): Sukses gunakan SEO (organik) untuk menghasilkan <span class="data-point">~30.000 leads</span> dari 750+ konten teroptimasi.</span>
+                     <p>Idealnya adalah <span class="emphasis">kombinasi keduanya</span>, disesuaikan dengan tujuan dan sumber daya.</p>
+                </div>
+            </details>
+
+              <details class="reveal-on-scroll">
+                <summary>6. Pengukuran Kinerja & Fokus Profitabilitas</summary>
+                <div class="details-content">
+                    <p>Pemasaran digital harus terukur dan bertujuan <span class="emphasis">menghasilkan keuntungan ("Making Profit")</span>.</p>
+                     <ul>
+                          <li>Fokus pada ROI (Return on Investment), bukan hanya vanity metrics (followers, likes).</li>
+                          <li>Tetapkan <span class="emphasis">KPIs (Key Performance Indicators)</span> yang relevan: Traffic, Leads, Conversion Rate, CPA (Cost Per Acquisition), ROAS (Return on Ad Spend).</li>
+                         <li>Lakukan <span class="emphasis">evaluasi rutin</span> (Harian, Mingguan, Bulanan) untuk optimalisasi cepat. Jika tidak efektif, segera evaluasi & ubah.</li>
+                         <li>Manfaatkan <span class="emphasis">alat analisis</span> (Google Analytics, dll.) untuk keputusan berbasis data.</li>
+                         <li>Kecepatan Respons (B2B): Sangat krusial, respon leads idealnya <span class="data-point">< 24 Jam</span>.</li>
+                     </ul>
+                </div>
+            </details>
+
+               <details class="reveal-on-scroll">
+                <summary>7. Tim & Pembelajaran Berkelanjutan</summary>
+                <div class="details-content">
+                    <p>Keberhasilan eksekusi bergantung pada tim dan kemauan belajar.</p>
+                     <ul>
+                          <li>Butuh <span class="emphasis">keahlian spesifik</span> (SEO, SEM, Ads Specialist, Konten, Data Analyst). Tim Paid & Organik bisa berbeda.</li>
+                           <li>Struktur Jelas: Perlu <span class="emphasis">SOP</span> dan <span class="emphasis">KPI</span> yang terukur.</li>
+                          <li><span class="emphasis">Pembelajaran Berkelanjutan:</span> Ikuti tren melalui workshop, konferensi, podcast, praktik langsung. Jangan berhenti belajar.</li>
+                         <li><span class="emphasis">Outsourcing:</span> Pertimbangkan agensi atau freelancer untuk keahlian tertentu.</li>
+                     </ul>
+                </div>
+            </details>
+
+        </section>
+
+        <section id="tanya-jawab">
+            <h2 class="reveal-on-scroll">Sesi Tanya Jawab (Q&A)</h2>
+            <p class="reveal-on-scroll">Beberapa pertanyaan diajukan oleh mahasiswa:</p>
+
+            <details class="reveal-on-scroll">
+                 <summary>Pertanyaan dari <span class="penanya">Dede Firmansyah (Defir)</span></summary>
+                <div class="details-content">
+                     <p><strong>Inti Pertanyaan:</strong> Struktur tim untuk Paid vs Organic di Infobrand, dan best practice memaksimalkan keduanya (kapan pakai mana)?</p>
+                    <p><strong>Jawaban Pak Tri (Ringkasan):</strong> Tim Paid (Ads Specialist, bisa dari IT) dan Organic (Tim Redaksi/Konten dgn skill SEO) <span class="emphasis">berbeda</span> karena skill set berbeda. Fokus Infobrand (B2B) banyak di <span class="emphasis">organik (SEO)</span> untuk leads berkualitas jangka panjang (contoh: plan 1000 konten SEO baru). Paid digunakan secara <span class="emphasis">terukur</span> (budget vs ROI), sering via LinkedIn Ads. Pengukuran <span class="emphasis">ROI sangat krusial</span> untuk memutuskan kelanjutan campaign berbayar.</p>
+                </div>
+            </details>
+
+             <details class="reveal-on-scroll">
+                 <summary>Pertanyaan dari <span class="penanya">Sekar Ajeng</span></summary>
+                <div class="details-content">
+                     <p><strong>Inti Pertanyaan:</strong> Faktor pendorong awal mendirikan Infobrand, dan cara digital marketer tetap relevan di tengah tren yang cepat berubah (apakah harus selalu aktif di semua sosmed)?</p>
+                     <p><strong>Jawaban Pak Tri (Ringkasan):</strong> Motivasi awal karena <span class="emphasis">kompetensi</span> di media & pemasaran, melihat peluang. Untuk tetap relevan: <span class="emphasis">Pembelajaran Berkelanjutan</span> kuncinya (workshop, konferensi, podcast, praktik, belajar dari orang lain/generasi beda). <span class="emphasis">Tidak harus</span> aktif membabi buta di semua platform, tapi perlu <span class="emphasis">memahami tren</span> dan memilih platform yang paling <span class="emphasis">efektif</span> untuk target pasar & tujuan bisnis setelah riset/testing.</p>
+                 </div>
+            </details>
+
+             <details class="reveal-on-scroll">
+                 <summary>Pertanyaan dari <span class="penanya">Aulia Fazriati Zikriyah</span></summary>
+                <div class="details-content">
+                      <p><strong>Inti Pertanyaan:</strong> Strategi digital marketing paling efektif untuk brand baru (misal: skincare) dengan budget terbatas bersaing dengan brand besar, dan metrik keberhasilan selain followers/engagement?</p>
+                      <p><strong>Jawaban Pak Tri (Ringkasan):</strong> Kuncinya adalah <span class="emphasis">INOVASI & DIFERENSIASI</span> produk/layanan. Cari <span class="emphasis">Niche Market</span> yang belum tergarap optimal. Fokus pada metrik bisnis riil: <span class="emphasis">Leads, Tingkat Konversi, Penjualan, CPA, ROAS, dan terutama PROFITABILITAS (ROI)</span>. Bangun jaringan distribusi (misal: reseller) bisa membantu penetrasi awal. Gunakan pendekatan <span class="emphasis">cost leadership</span> (efisiensi) karena lebih lincah dibanding pemain besar.</p>
+                 </div>
+            </details>
+
+        </section>
+
+    </div><!-- /.container -->
+
+    <footer>
+        <div class="container text-center">
+            <!-- Placeholder for dynamic time and copyright -->
+            <p id="footer-info">Memuat info...</p>
+            <p>Universitas Indonesia</p>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button HTML (Using arrow character) -->
+    <button id="backToTop" title="Kembali ke atas">&#x2191;</button> <!-- Unicode UP ARROW -->
+
+ <script>
+    document.addEventListener('DOMContentLoaded', () => {
+
+        // --- Update Footer Time/Year ---
+        function updateFooterInfo() {
+            const footerElement = document.getElementById('footer-info');
+            if (!footerElement) return;
+
+            const now = new Date();
+            const year = now.getFullYear();
+            let timeString = 'N/A';
+
+            try {
+                // Format time for Jakarta (WIB = GMT+7)
+                timeString = now.toLocaleTimeString('id-ID', {
+                    timeZone: 'Asia/Jakarta',
+                    hour: '2-digit',
+                    minute: '2-digit',
+                    // second: '2-digit', // Optional: include seconds
+                    hour12: false // Use 24-hour format
+                });
+            } catch (e) {
+                console.error("Error formatting time:", e);
+                // Fallback or keep 'N/A'
+            }
+
+            footerElement.textContent = `WIB: ${timeString} | © ${year} I Dewa Gede Vrischika Sedanayoga - Kuliah Tamu Digital Marketing.`;
+        }
+
+        updateFooterInfo(); // Call once on load
+        // Optional: Update time every minute (if seconds aren't shown, minute is enough)
+        // setInterval(updateFooterInfo, 60000);
+
+
+        // --- Smooth Scroll for Nav Links ---
+        const navLinks = document.querySelectorAll('nav a[href^="#"]');
+        navLinks.forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    const navHeight = document.getElementById('mainNav').offsetHeight;
+                    const targetPosition = targetElement.getBoundingClientRect().top + window.pageYOffset - navHeight - 15; // Extra space
+
+                    window.scrollTo({
+                        top: targetPosition,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // --- Intersection Observer for Scroll Reveal Animations ---
+        const revealElements = document.querySelectorAll('.reveal-on-scroll');
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // observer.unobserve(entry.target); // Optional: uncomment to fire only once
+                }
+                // Optional: hide again when scrolling up
+                // else {
+                //     entry.target.classList.remove('is-visible');
+                // }
+            });
+        }, {
+            root: null,
+            threshold: 0.1,
+        });
+
+        revealElements.forEach(el => {
+            revealObserver.observe(el);
+        });
+
+         // --- Intersection Observer for Active Nav Link Highlighting ---
+         const sections = document.querySelectorAll('section[id]');
+         // Adjust rootMargin: top margin accounts for nav height, bottom pushes trigger point higher
+         const navObserverOptions = {
+             root: null,
+             rootMargin: "-70px 0px -45% 0px", // Top: nav height, Bottom: 55% from bottom of viewport
+             threshold: 0 // Trigger as soon as section edge crosses margin
+         };
+
+         const navObserver = new IntersectionObserver((entries) => {
+            let sectionsInView = [];
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    sectionsInView.push(entry.target.getAttribute('id'));
+                }
+            });
+
+            // If sections are in view, highlight the first one (topmost)
+            if (sectionsInView.length > 0) {
+                 // Get the ID of the topmost visible section based on current scroll position
+                 // (A simpler approximation is just taking the first one from the observer)
+                 const currentActiveId = sectionsInView[0]; // Usually the topmost intersecting
+                 document.querySelectorAll('nav a.active').forEach(link => link.classList.remove('active'));
+                 const navLink = document.querySelector(`nav a[href="#${currentActiveId}"]`);
+                 if(navLink) {
+                    navLink.classList.add('active');
+                 }
+            } else {
+                // Optional: If no sections are 'active' maybe remove all active classes
+                // document.querySelectorAll('nav a.active').forEach(link => link.classList.remove('active'));
+            }
+
+         }, navObserverOptions);
+
+         sections.forEach(section => {
+             navObserver.observe(section);
+         });
+
+
+        // --- Back to Top Button Logic ---
+        const backToTopButton = document.getElementById('backToTop');
+        const scrollThreshold = 300; // Pixels scrolled before showing button
+
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset > scrollThreshold) {
+                backToTopButton.classList.add('show');
+            } else {
+                backToTopButton.classList.remove('show');
+            }
+        });
+
+        backToTopButton.addEventListener('click', () => {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+
+        // --- Chart Bar Animation (Handled by CSS) ---
+        // No JS needed for the basic grow animation now.
+
+    });
+ </script>
+
+</body>
+</html>
