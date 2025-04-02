@@ -1,0 +1,47 @@
+        /* Footer */
+        footer {
+            background-color: #1f1f1f; /* Dark component background */
+            color: var(--text-color-secondary); /* Lighter grey footer text */
+            padding: 25px 0;
+            margin-top: 40px;
+            font-size: 0.9em;
+            border-top: 1px solid var(--border-color);
+        }
+         footer p {
+             margin: 5px 0;
+         }
+
+
+        /* Responsive Adjustments */
+        @media (max-width: 768px) {
+            body { padding-top: 60px; }
+            nav ul { justify-content: space-around; }
+            header h1 { font-size: 2em; }
+            section { padding: 20px; }
+            section h2 { font-size: 1.5em; }
+            .bar-chart { height: 150px; padding-bottom: 35px; }
+            .bar .label { font-size: 0.7em; bottom: -25px; }
+            .bar .value { font-size: 0.8em; top: -20px; }
+            #backToTop {
+                bottom: 20px;
+                right: 20px;
+                padding: 8px 12px;
+                font-size: 1.2em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            header h1 { font-size: 1.8em; }
+            section h2 { font-size: 1.3em; }
+            nav ul li { margin: 5px 8px; }
+            nav ul li a { padding: 6px 10px; font-size: 0.9em;}
+             #backToTop {
+                padding: 6px 10px;
+                font-size: 1.1em;
+                bottom: 15px;
+                right: 15px;
+                border-radius: 6px;
+            }
+            .bar .label { font-size: 0.65em; }
+        }
+    </style>
